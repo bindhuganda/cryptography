@@ -1,0 +1,48 @@
+def generate_cipher_sequence(keyword):
+    keyword = keyword.upper()
+    cipher_sequence = keyword
+    
+    for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        if letter not in keyword:
+            cipher_sequence += letter
+    
+    return cipher_sequence
+
+def monoalphabetic_encrypt(plaintext, cipher_sequence):
+    plaintext = plaintext.upper()
+    ciphertext = ""
+    
+    for char in plaintext:
+        if char.isalpha():
+            index = ord(char) - ord('A')
+            ciphertext += cipher_sequence[index]
+        else:
+            ciphertext += char
+    
+    return ciphertext
+
+def monoalphabetic_decrypt(ciphertext, cipher_sequence):
+    ciphertext = ciphertext.upper()
+    plaintext = ""
+    
+    for char in ciphertext:
+        if char.isalpha():
+            index = cipher_sequence.index(char)
+            plaintext += chr(index + ord('A'))
+        else:
+            plaintext += char
+    
+    return plaintext
+
+# Main program
+keyword = "CIPHER"
+cipher_sequence = generate_cipher_sequence(keyword)
+
+print("Cipher Sequence:", cipher_sequence)
+
+plaintext = input("Enter the plaintext: ")
+encrypted_text = monoalphabetic_encrypt(plaintext, cipher_sequence)
+print("Encrypted Text:", encrypted_text)
+
+decrypted_text = monoalphabetic_decrypt(encrypted_text, cipher_sequence)
+print("Decrypted Text:", decrypted_text)
